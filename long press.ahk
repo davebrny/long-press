@@ -1,9 +1,9 @@
 /*
 [script info]
-version     = 1
+version     = 1.0.1
 description = long press a key to send an alternate symbol or string
 author      = davebrny
-source      = 
+source      = https://github.com/davebrny/long-press
 */
 
 #noEnv
@@ -33,8 +33,7 @@ loop, parse, ini_section, `n, `r    ;# get ini key and value
     stringMid, ini_key, a_loopField, pos, , L
     stringMid, ini_value, a_loopField, pos + 2
     ini_key   := trim(ini_key)
-    ini_value := trim(ini_value)
-    ini_value := regExReplace(ini_value, "^;.*$|\s+;.*$")  ; strip comments
+    ini_value := trim(regExReplace(ini_value, "^;.*$|\s+;.*$"))  ; strip comments
     if (ini_value = "")
         continue
 
@@ -42,6 +41,7 @@ loop, parse, ini_section, `n, `r    ;# get ini key and value
     LP_%scancode% := ini_value                       ; save alt key in LP_SC2B
     hotkey, ~%ini_key%, long_press
     }
+
 file_contents := ""
 ini_section   := ""
 
@@ -54,7 +54,7 @@ return  ; end of auto-execute ------------------------------------------------
 
 
 long_press:
-stringTrimLeft, key, a_thisHotkey, 1    ; trim ~ symbol
+stringTrimLeft, key, a_thisHotkey, 1  ; trim ~ symbol
 keyWait, % key
 if (a_timeSinceThisHotkey > press_duration) and (a_timeSinceThisHotkey < spam_start)
     {
@@ -70,7 +70,7 @@ return
 
 start_with_windows:     ; tray menu label
 if fileExist(a_startup "\long press.lnk")
-     fileDelete, % a_startup "\long press.lnk"
+    fileDelete, % a_startup "\long press.lnk"
 else fileCreateShortcut, % a_scriptFullPath, % a_startup "\long press.lnk"
 menu, tray, % fileExist(a_startup "\long press.lnk") ? ("check") : ("unCheck"), Start with Windows
 return
