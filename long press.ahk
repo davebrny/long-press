@@ -1,6 +1,6 @@
 /*
 [script info]
-version     = 1.0.1
+version     = 1.2
 description = long press a key to send an alternate symbol or string
 author      = davebrny
 source      = https://github.com/davebrny/long-press
@@ -19,8 +19,8 @@ iniRead, press_duration, % a_scriptDir "\settings.ini" , settings, press_duratio
 iniRead, spam_start,     % a_scriptDir "\settings.ini" , settings, spam_start
 iniRead, active_list,    % a_scriptDir "\settings.ini" , settings, active_list
 
-fileRead, file_contents, % a_scriptDir "\" active_list ".ini"    ;# get ini section manually
-stringGetPos, pos, file_contents, % "[long press]"
+fileRead, file_contents, % a_scriptDir "\" active_list
+stringGetPos, pos, file_contents, % "[long press]"    ;# get ini section manually
 stringMid, ini_section, file_contents, pos + 13
 
 loop, parse, ini_section, `n, `r    ;# get ini key and value
