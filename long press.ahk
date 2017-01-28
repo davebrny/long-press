@@ -20,8 +20,8 @@ iniRead, spam_start,     % a_scriptDir "\settings.ini" , settings, spam_start
 iniRead, active_list,    % a_scriptDir "\settings.ini" , settings, active_list
 
 fileRead, file_contents, % a_scriptDir "\" active_list ".ini"    ;# get ini section manually
-stringGetPos, pos, file_contents, % "[" active_list "]"
-stringMid, ini_section, file_contents, pos + strLen(active_list) + 3
+stringGetPos, pos, file_contents, % "[long press]"
+stringMid, ini_section, file_contents, pos + 13
 
 loop, parse, ini_section, `n, `r    ;# get ini key and value
     {
